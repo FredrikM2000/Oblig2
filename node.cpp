@@ -6,36 +6,6 @@ Node::Node(){}
 
 Node::Node(char data, Node* left, Node* right) : m_data{data}, m_left{left}, m_right{right}
 { }
-char Node::getData() {return m_data;}
-
-Node *Node::find(char data)
-{
-    // std::cout << m_data;
-    if(m_data == data)
-         return this;
-    else if (data < m_data && m_left!= nullptr)
-        return m_left->find(data) ;
-    else if (m_right) // m_data <= data
-         return m_right->find(data);
-    // kun hvis noden ikke finnes, kommer vi hit
-    return nullptr;
-}
-
-void Node::insert(char data)
-{
-    if(data < m_data) {
-        if(m_left)
-            m_left->insert(data);
-        else
-            m_left = new Node(data);
-    }
-    else if (data > m_data) {
-        if (m_right)
-            m_right->insert(data);
-        else
-            m_right = new Node(data);
-    }
-}
 
 void Node::oppg1()
 {
@@ -50,7 +20,7 @@ void Node::oppg1()
         //right subtree
         if (!stakk.empty()) {
             p = stakk.top();
-            std::cout << p->m_data; //INORDER
+            std::cout << p->m_data;
             stakk.pop();
             p = p->m_right;
 
@@ -116,55 +86,33 @@ int Node::oppg3()
 
 
 
-int Node::height(Node* root)
+int Node::oppg4(Node* root)
 {
     if(root == nullptr)
         return 0;
 
-    return findMax(height(root->m_left), height(root->m_right)) + 1;
-}
+    int a = oppg4(root->m_left);
+    int b = oppg4(root->m_right);
 
-int Node::findMax(int a, int b){
     if (a >= b)
-        return a;
+        return a + 1;
     else
-        return b;
+        return b + 1;
 }
 
-bool Node::isBalanced(Node* root)
+bool Node::oppg5(Node* node)
 {
     int lh;
     int rh;
 
-
-    if (root == nullptr)
+    if (node == nullptr)
         return 1;
 
-    lh = height(root->m_left);
-    rh = height(root->m_right);
+    lh = oppg4(node->m_left);
+    rh = oppg4(node->m_right);
 
-    if (abs(lh-rh)<= 1 && isBalanced(root->m_left) && isBalanced(root->m_right))
+    if (abs(lh-rh)<= 1 && oppg5(node->m_left) && oppg5(node->m_right))
         return 1;
+    return 0;
 }
-
-void Node::print()
-{
-    if(m_left)
-        m_left->print();
-    std::cout << m_data;
-    if(m_right)
-        m_right->print();
-}
-
-
-
-
-//sjekk hver node hvis subtrær er i ubalanse
-//sammenlign høyre og venstre
-
-
-
-
-
-
 
