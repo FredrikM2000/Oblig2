@@ -16,8 +16,10 @@ public:
     void oppg1();
     void oppg2();
     int oppg3();
-    int oppg4(Node* root);
+    void oppg4();
+    int height(Node* root);
     int findMax(int a, int b);
+    bool isBalanced(Node* root);
 
 private:
     char m_data ;

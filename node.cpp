@@ -114,12 +114,14 @@ int Node::oppg3()
     return teller;
 }
 
-int Node::oppg4(Node* root)
+
+
+int Node::height(Node* root)
 {
     if(root == nullptr)
         return 0;
 
-    return findMax(oppg4(root->m_left), oppg4(root->m_right)) + 1;
+    return findMax(height(root->m_left), height(root->m_right)) + 1;
 }
 
 int Node::findMax(int a, int b){
@@ -127,6 +129,22 @@ int Node::findMax(int a, int b){
         return a;
     else
         return b;
+}
+
+bool Node::isBalanced(Node* root)
+{
+    int lh;
+    int rh;
+
+
+    if (root == nullptr)
+        return 1;
+
+    lh = height(root->m_left);
+    rh = height(root->m_right);
+
+    if (abs(lh-rh)<= 1 && isBalanced(root->m_left) && isBalanced(root->m_right))
+        return 1;
 }
 
 void Node::print()
@@ -137,6 +155,12 @@ void Node::print()
     if(m_right)
         m_right->print();
 }
+
+
+
+
+//sjekk hver node hvis subtrær er i ubalanse
+//sammenlign høyre og venstre
 
 
 
